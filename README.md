@@ -12,7 +12,8 @@ https://github.com/landley/toybox
 Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with limited number of **applets**.
 The module installes additional `toybox-ext` binary, with the additional applets.
 
-Install the module and reboot. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
+**Install** the module and **reboot**. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
+
 Make sure that `/system/bin` and `/system/xbin` (the latter might not available for some phones) are in the `PATH`.
 Check e.g. with (all commands are **case sensitive**):
 
@@ -47,8 +48,16 @@ Usually, `w` will be one of them, hence you can try:
 w
 ```
 
-**Note**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
+**Note 1**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
+
 Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
+
+**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the preinstalled toybox binary.
+
+To check did it find and install them, repeat the above `which` and `ls -l` tests but looking for `toybox-stock` binary instead.
+
+For me, e.g., one of the additionally found applets was `getfattr`.
+
 
 #### Source 
 
