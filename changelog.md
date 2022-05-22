@@ -1,6 +1,6 @@
 #### v1.0.3
 
-ToyBox binaries updated to v0.8.7 (as of May 5, 2022)
+ToyBox binaries updated to v0.8.7 (build May 5, 2022)
 
 #### v1.0.2
 
