@@ -59,8 +59,9 @@ fi
 
 # List toybox-exr applets
 TBBIN=toybox-ext
-Applets=$($MODDIR/$TBBIN)
-Applets=$Applets$'\n'$TBBIN
+Applets=$TBBIN
+TBBIN=$MODDIR/$TBBIN
+Applets=$Applets$'\n'$($TBBIN)
 
 # Create symlinks for toybox-ext applets
 $Count=0
@@ -71,7 +72,7 @@ do
   if [ -z "$Check" ]
   then
 #    ln -s $TBBIN $Applet
-    ln -s $MODDIR/$TBBIN $Applet
+    ln -s $TBBIN $Applet
     $Count=$((Count++))
   fi
 done
