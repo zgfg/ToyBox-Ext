@@ -1,3 +1,13 @@
+#!/system/bin/sh
+
+#Magisk Module ToyBox-Ext v1.0.4
+#Copyright (c) zgfg @ xda, 2022-
+
+if [ -z $BOOTMODE ] ||  [ "$BOOTMODE" != "true" ] 
+then
+	abort "ERROR: Install from Magisk app, not from TWRP!"
+fi
+
 # Module's own path (local path)
 cd $MODPATH
 

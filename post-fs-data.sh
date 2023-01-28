@@ -1,3 +1,8 @@
+#!/system/bin/sh
+
+#Magisk Module ToyBox-Ext v1.0.4
+#Copyright (c) zgfg @ xda, 2022-
+
 # Module's own path (local path)
 MODDIR=${0%/*}
 
