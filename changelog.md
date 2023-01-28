@@ -1,4 +1,4 @@
-#### v1.0.3
+#### v1.0.4
 
 ToyBox binaries updated to v0.8.9 (build Jan 10, 2023)
 
