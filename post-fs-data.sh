@@ -57,12 +57,10 @@ then
   rm $TBBIN
 fi
 
-# Install toybox-ext binary
+# List toybox-exr applets
 TBBIN=toybox-ext
-cp $MODDIR/$TBBIN $TBBIN
-chmod 755 $TBBIN
-Applets=$(./$TBBIN) 
-Applets=$Applets $TB
+Applets=$($MODDIR/$TBBIN)
+Applets=$Applets$'\n'$TBBIN
 
 # Create symlinks for toybox-ext applets
 $Count=0
@@ -72,13 +70,8 @@ do
   Check=$(which $Applet)
   if [ -z "$Check" ]
   then
-    ln -s $TBBIN $Applet
+#    ln -s $TBBIN $Applet
+    ln -s $MODDIR/$TBBIN $Applet
     $Count=$((Count++))
   fi
 done
-
-# Remove toybox-ext if no symlinks created
-if [ "$Count" -le 0 ]
-then
-  rm $TBBIN
-fi
