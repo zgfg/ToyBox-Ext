@@ -26,9 +26,9 @@ rm -rf $TBXBINDIR
 rm -rf $TBBINDIR
 mkdir -p $TBDIR
 cd $TBDIR
-TB=toybox
 
 # Install toybox-stock binary if found in the path
+TB=toybox
 TBBIN=$(which $TB)
 if [ ! -z "$TBBIN" ]
 then
@@ -47,9 +47,9 @@ do
 done
 
 # List toybox-ext applets
-Applets=toybox-ext
+TB=toybox-ext
 TBBIN=$MODDIR/$TB
-Applets=$Applets$'\n'$($TBBIN)
+Applets=$TB$'\n'$($TBBIN)
 
 # Create symlinks for toybox-ext applets
 for Applet in $Applets
