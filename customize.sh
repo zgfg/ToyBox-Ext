@@ -34,7 +34,7 @@ do
       # Suitable binary found
       echo "Installing $TBBIN binary and applets"
       TBFound=true
-      mv $TBBIN toybox-ext
+      mv $TBBIN toybox
       continue
     fi
   fi

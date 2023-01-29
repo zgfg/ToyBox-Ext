@@ -29,17 +29,13 @@ cd $TBDIR
 TB=toybox
 
 # Install toybox-stock binary if found in the path
-TBBIN=toybox-stock
-TBSTOCK=$(which $TB)
-if [ ! -z "$TBSTOCK" ]
+TBBIN=$(which $TB)
+if [ ! -z "$TBBIN" ]
 then
-  cp $TBSTOCK $TBBIN
-  chmod 755 $TBBIN
-  Applets=$(./$TBBIN)
+  Applets=$($TBBIN)
 fi
 
 # Create symlinks for toybox-stock applets
-$Count=0
 for Applet in $Applets
 do
   # Skip if applet already found in the path
@@ -47,32 +43,21 @@ do
   if [ -z "$Check" ]
   then
     ln -s $TBBIN $Applet
-    $Count=$((Count++))
   fi
 done
 
-# Remove toybox-stock if no symlinks created
-if [ "$Count" -le 0 ]
-then
-  rm $TBBIN
-fi
-
-# List toybox-exr applets
-TBBIN=toybox-ext
-Applets=$TBBIN
-TBBIN=$MODDIR/$TBBIN
+# List toybox-ext applets
+Applets=toybox-ext
+TBBIN=$MODDIR/$TB
 Applets=$Applets$'\n'$($TBBIN)
 
 # Create symlinks for toybox-ext applets
-$Count=0
 for Applet in $Applets
 do
   # Skip if applet already found in the path
   Check=$(which $Applet)
   if [ -z "$Check" ]
   then
-#    ln -s $TBBIN $Applet
     ln -s $TBBIN $Applet
-    $Count=$((Count++))
   fi
 done
