@@ -1,1 +1,75 @@
-<div id="smart-button-container"> <div style="text-align: center"><label for="description">Coffee donation </label><input type="text" name="descriptionInput" id="description" maxlength="127" value=""></div> <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p> <div style="text-align: center"><label for="amount">5 </label><input name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div> <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p> <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div> <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p> <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div> </div> <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script> <script> function initPayPalButton() { var description = document.querySelector('#smart-button-container #description'); var amount = document.querySelector('#smart-button-container #amount'); var descriptionError = document.querySelector('#smart-button-container #descriptionError'); var priceError = document.querySelector('#smart-button-container #priceLabelError'); var invoiceid = document.querySelector('#smart-button-container #invoiceid'); var invoiceidError = document.querySelector('#smart-button-container #invoiceidError'); var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv'); var elArr = [description, amount]; if (invoiceidDiv.firstChild.innerHTML.length > 1) { invoiceidDiv.style.display = "block"; } var purchase_units = []; purchase_units[0] = {}; purchase_units[0].amount = {}; function validate(event) { return event.value.length > 0; } paypal.Buttons({ style: { color: 'gold', shape: 'rect', label: 'paypal', layout: 'vertical', }, onInit: function (data, actions) { actions.disable(); if(invoiceidDiv.style.display === "block") { elArr.push(invoiceid); } elArr.forEach(function (item) { item.addEventListener('keyup', function (event) { var result = elArr.every(validate); if (result) { actions.enable(); } else { actions.disable(); } }); }); }, onClick: function () { if (description.value.length < 1) { descriptionError.style.visibility = "visible"; } else { descriptionError.style.visibility = "hidden"; } if (amount.value.length < 1) { priceError.style.visibility = "visible"; } else { priceError.style.visibility = "hidden"; } if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") { invoiceidError.style.visibility = "visible"; } else { invoiceidError.style.visibility = "hidden"; } purchase_units[0].description = description.value; purchase_units[0].amount.value = amount.value; if(invoiceid.value !== '') { purchase_units[0].invoice_id = invoiceid.value; } }, createOrder: function (data, actions) { return actions.order.create({ purchase_units: purchase_units, }); }, onApprove: function (data, actions) { return actions.order.capture().then(function (orderData) { // Full available details console.log('Capture result', orderData, JSON.stringify(orderData, null, 2)); // Show a success message within this page, e.g. const element = document.getElementById('paypal-button-container'); element.innerHTML = ''; element.innerHTML = '<h3>Thank you for your payment!</h3>'; // Or go to another URL: actions.redirect('thank_you.html'); }); }, onError: function (err) { console.log(err); } }).render('#paypal-button-container'); } initPayPalButton(); </script>
+# ToyBox-Ext
+
+### Description
+Systemless Magisk module
+to install (additional) ToyBox applets, using **ARMv7 or higher** binaries from:
+https://github.com/landley/toybox
+
+**Supported**: ARMv7 and higher 
+
+##### TEST
+
+Ussually, **ToyBox** comes preinstalled to `/system/bin`, but with limited number of **applets**.
+The module installes additional `toybox-ext` binary, with the additional applets (**UNIX/Linux command-line utilities**).
+
+**Install** the module and **reboot**. Use **Terminal Emulator** - **Toybox applets** are for Terminal and **shell scripts**.
+
+Make sure that `/system/bin` and/or `/system/xbin` (the latter might not be available on some devices) are in the `PATH`.
+Check e.g. with (all commands are **case sensitive**):
+
+```
+su
+echo $PATH
+```
+
+Check if `toybox-ext` was properly installed and is it installed to `/system/xbin` or `/system/bin`:
+
+```
+toybox-ext --help
+which toybox-ext
+```
+
+If the responded toybox-ext path was `/system/xbin` then check:
+
+```
+ls -l /system/xbin | grep toybox-ext
+```
+
+whereas if the toybox-ext path was `/system/bin` then use:
+
+```
+ls -l /system/bin | grep toybox-ext
+```
+
+The command will show all toybox-ext applets as installed (symlinked to the toybox-ext binary).
+Usually, `w` will be one of them, hence you can try:
+
+```
+w
+```
+
+**Note 1**: Some applets are common to **BusyBox** and **ToyBox**, e.g. `ascii`.
+
+Hence, if you have also the `busybox` installed, `toybox-ext` will symlink less number of (additional) applets.
+
+**Note 2**: Since ToyBox-Ext **v1.0.2**, the module also looks if there are not-symlinked applets available from the pre-installed toybox binary (ROMs usually come with the pre-installed ToyBox but with smaller or an older binary and with a less number of applets).
+
+For me, the additionally found applets from the pre-installed ToyBox were e.g. `getfattr` and `iotop`.
+
+
+#### Source 
+
+[My Repo:](https://github.com/zgfg/ToyBox-Ext)
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/zgfg/ToyBox-Ext?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/zgfg/ToyBox-Ext?label=Release%20Date&style=plastic) 
+![GitHub Releases](https://img.shields.io/github/downloads/zgfg/ToyBox-Ext/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
+![GitHub All Releases](https://img.shields.io/github/downloads/zgfg/ToyBox-Ext/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
+
+[Alt-Repo:](https://github.com/Magisk-Modules-Alt-Repo/ToyBox-Ext)
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Magisk-Modules-Alt-Repo/ToyBox-Ext?label=Release&style=plastic) ![GitHub Release Date](https://img.shields.io/github/release-date/Magisk-Modules-Alt-Repo/ToyBox-Ext?label=Release%20Date&style=plastic) 
+![GitHub Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/ToyBox-Ext/latest/total?label=Downloads%20%28Latest%20Release%29&style=plastic)
+![GitHub All Releases](https://img.shields.io/github/downloads/Magisk-Modules-Alt-Repo/ToyBox-Ext/total?label=Total%20Downloads%20%28All%20Releases%29&style=plastic)
+
+#### Copyright (c) zgfg @ xda, 2022-
+
