@@ -66,7 +66,7 @@ do
   Check=$(which $Applet)
   if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
   then
-	# Create symlink
+    # Create symlink
     ln -s $TBBIN $Applet
   fi
 done
@@ -85,7 +85,7 @@ do
   Check=$(which $Applet)
   if [ -z "$Check" ] && [ ! -x "$SDIR/$Applet" ] && [ ! -x "$TBPATH/$Applet" ]
   then
-	# Create symlink
+    # Create symlink
     ln -s $TBSTOCK $Applet
   fi
 done
