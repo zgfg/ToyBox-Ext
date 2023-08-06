@@ -16,11 +16,11 @@ cd $MODPATH
 LogFile="$MODPATH/customize.log"
 
 # Uncomment for logging
-exec 3>&2 2>$LogFile 1>&2
-set -x
-date +%c
-magisk -c
-magisk --path
+#exec 3>&2 2>$LogFile 1>&2
+#set -x
+#date +%c
+#magisk -c
+#magisk --path
 
 # toybox ARMv7 and higher binaries
 TBTYPEList="
