@@ -17,6 +17,10 @@ date +%c
 magisk -c
 magisk --path
 
+# Log ROM A/B info
+getprop ro.product.cpu.abi
+getprop ro.product.cpu.abilist
+
 # Log results for stock ToyBox
 TB=toybox
 $TB --version
@@ -77,7 +81,7 @@ then
     sleep 1
   done
 
-  # and few more seconds
+  # Wait few additional seconds
   sleep 3
   rm -f $TBTYPE
   /data/adb/magisk/busybox wget -c -T 20 "http://landley.net/toybox/bin/$TBTYPE"
