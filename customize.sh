@@ -94,7 +94,7 @@ else
   if [ "$MD5New" = "$MD5Old" ]
   then
     # Delete, same as old binary
-    echo "Downloaded $TBTYPE same as archived"
+    echo "Downloaded $TBTYPE same version as archived"
     rm -f $TBTYPE
   else
     # Test downloaded binary
