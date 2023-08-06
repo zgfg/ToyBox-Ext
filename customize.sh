@@ -12,6 +12,12 @@ fi
 # Module's own path (local path)
 cd $MODPATH
 
+# Log for debugging
+LogFile="$MODPATH/customize.log"
+exec 3>&2 2>$LogFile 1>&2
+set -x
+date +%c
+
 # toybox ARMv7 and higher binaries
 TBTYPEList="
 toybox-aarch64
@@ -41,7 +47,8 @@ do
       # Applicable binary found
       TBTYPE=$TB
       mv $TBTYPE $TBEXT
-      echo "Archived $TBTYPE installed"
+      Version=$(./$TBEXT --version)
+      echo "Archived $TBTYPE $Version installed"
       continue
     fi
   fi
@@ -76,9 +83,10 @@ else
   Applets=$(./$TBTYPE)
   if [ ! -z "$Applets" ]
   then
-    # Install 
+    # Install
     mv $TBTYPE $TBEXT
-    echo "Downloaded $TBTYPE installed instead"
+    Version=$(./$TBEXT --version)
+    echo "Downloaded $TBTYPE $Version installed instead"
   else
     # Delete, not working
     echo "Use archived $TBTYPE instead"

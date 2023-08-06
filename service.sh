@@ -110,9 +110,9 @@ then
       echo "LASTDLTIME=$DLTIME" >> $TBSCRIPT
 
       # Notify user to reboot
-      TBVERSION=$(./$TBTYPE --version)
+      Version=$(./$TBTYPE --version)
       exec 2>&3 3>&-
-      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary to $TBVERSION'" 1>/dev/null
+      su -lp 2000 -c "cmd notification post -S bigtext -t 'ToyBox-Ext Module' 'Tag' 'Reboot to update ToyBox binary to $Version'" 1>/dev/null
 	  exec 3>&2 2>>$LogFile 1>&2
     fi
   fi
